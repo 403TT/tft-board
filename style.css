@@ -1,0 +1,37 @@
+body {
+  background: #111;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.hex-board {
+  display: grid;
+  grid-template-columns: repeat(7, 60px);
+  grid-gap: 5px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.hex {
+  width: 60px;
+  height: 52px;
+  background: #333;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hex img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+input {
+  padding: 8px;
+  width: 300px;
+  margin-top: 20px;
+}
