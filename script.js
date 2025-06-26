@@ -8,11 +8,20 @@ const championIcons = {
   // Add more champions
 };
 
-const championPositions = {
-  "sett": { row: 3, col: 3 },
-  "darius": { row: 2, col: 2 },
-  "shen": { row: 2, col: 4 }
+const builds = {
+  "dynamo miss fortune": [
+    { name: "Poppy", row: 0, col: 1 },
+    { name: "Gragas", row: 0, col: 2 },
+    { name: "Zac", row: 0, col: 3 },
+    { name: "Kobuko", row: 0, col: 4 },
+    { name: "Renekton", row: 1, col: 5 },
+    { name: "Miss Fortune", row: 2, col: 0 },
+    { name: "Morgana", row: 2, col: 1 },
+    { name: "Aurora", row: 2, col: 2 },
+    { name: "Elise", row: 2, col: 5 }
+  ]
 };
+
 
 function createBoard() {
   board.innerHTML = "";
@@ -27,26 +36,26 @@ function createBoard() {
   }
 }
 
-function placeChampions(buildText) {
+function placeChampionsFromBuild(buildName) {
   createBoard();
-  const names = buildText.toLowerCase().split(",").map(n => n.trim());
-  names.forEach(name => {
-    const pos = championPositions[name];
-    const icon = championIcons[name];
-    if (pos && icon) {
-      const cell = [...document.querySelectorAll(".hex")]
-        .find(div => div.dataset.row == pos.row && div.dataset.col == pos.col);
-      if (cell) {
-        const img = document.createElement("img");
-        img.src = icon;
-        cell.appendChild(img);
-      }
+  const champions = builds[buildName.toLowerCase()];
+  if (!champions) return;
+
+  champions.forEach(champ => {
+    const icon = championIcons[champ.name];
+    const cell = [...document.querySelectorAll(".hex")]
+      .find(div => div.dataset.row == champ.row && div.dataset.col == champ.col);
+    if (cell && icon) {
+      const img = document.createElement("img");
+      img.src = icon;
+      img.alt = champ.name;
+      cell.appendChild(img);
     }
   });
 }
 
 buildInput.addEventListener("change", (e) => {
-  placeChampions(e.target.value);
+  placeChampionsFromBuild(e.target.value.trim());
 });
 
 createBoard();
